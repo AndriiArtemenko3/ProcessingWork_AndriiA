@@ -7,7 +7,7 @@ I also want the user to be able to see the volume level visually
 Then I want to add some key commands to regulate the amount of noise in my sound synthesizer to increase or decrease it 
 ### Process - Volume mapping 
 So to manipulate volume I have to work with amp() or amplitude and connect it to my volume variable so that the values of the volume as a varibale will be equal to amplitude of the sound. That is the only way I know of how to change volume in the sketch. Amp() is a float parameter varibale so I will assign my volume variable to float type and its range will be from 0.0 ( complete silence ) to 1.0 ( full volume ). I then have to map it accordingly to the dimensions of my sketch but first I will create my varibales and setup. I used official documentation to get the right parameters for amp() : https://processing.org/reference/libraries/sound/SawOsc_amp_.html
-'''java 
+```java 
 import processing.sound.*;
 
 SinOsc osc;
@@ -22,4 +22,5 @@ void setup() {
   osc.freq(440);
   osc.play();
 }
-'''
+```
+

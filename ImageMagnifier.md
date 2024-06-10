@@ -128,10 +128,8 @@ if (dist(dx, dy, 0, 0) < radius) {
 // Set the fill color to the pixel's color
 fill(col);
       
-// Disable the stroke (outline) of the rectangle
 noStroke();
       
-// Draw the pixel as a rectangle
 rect(x * pixelWidth, y * pixelHeight, pixelWidth, pixelHeight);
 }
 ```
@@ -141,9 +139,9 @@ rectangles and have no stroke to display them better.
 ```java
 void keyPressed() {
   if (key == '+') {
-    zoomFactor *= 1.1; // Zoom in
+    zoomFactor *= 1.1; 
   } else if (key == '-') {
-    zoomFactor /= 1.1; // Zoom out
+    zoomFactor /= 1.1; 
   }
 }
 ```

@@ -34,4 +34,80 @@ void draw() {
 ```
 ### Process - Visual Volume Level 
 
-  
+Now I need to create a visual output illustration for the volume level; I will display it as a long rectangular volume bar similar to the default ones in the audio analysis and music software. The color I assign will be olive green; 
+In terms of mapping I also have to map it as an integer becasue otherwise it will be interpreted as float and the visual output will be incorrect. When working with pixels it is important to map out values an integers. Processing also does not allow to map it as a float if the varibale is assigned as an integer, so i have to use int(map(();
+
+```java
+volumeLevel = int(map(volume, 0, 1, 0, width)); // mapping out the volumeLevel as integer for visual output
+  fill(0, 100, 0); // setting the color of the volume bar to olive green 
+  rect(0, height/2, volumeLevel, 20); // setting the bar as rect and giving it physicla parameters - position, height and width. I did not necceseraly wanted to center // it so it will be a bit below the center as well   
+```
+### Process - Formatting numbers as string in Processing, adding textbox output 
+
+To make my app more informative I considered adding the textbox output that would show current volume level. This is the step that I had to stop on for a while but I managed to find a solution using nf() function that formats numbers into a string. https://processing.org/reference/nf_.html 
+
+```java
+fill(0); // black text 
+  textSize(24); 
+  textAlign(CENTER, CENTER); // centering the text 
+  text("Volume Level: " + nf(volume, 1, 2), width/2, height/2 - 50); // nf(volume, 1, 2) basically means that there will be output according to my volume or amplitude 
+// level, 1 digital on the right from the dot and two digits on the right, that is typical for float values so I used it in this case
+```
+### Process - Adding Noise to the sketch 
+Now that the volume is set, I want to add a feature to my application that would increase or decrease the noise level to it if the user presses a certain key. I consider adding a similar visual representation to show the noise level. But I have to add the noise to my sketch and edit my setup accordingly.
+
+```java
+SinOsc osc;
+WhiteNoise noise; // importing white noise from the sound library
+float volume;
+float noiseVolume; // defining the noise volume variable
+int volumeLevel;
+int noiseVolumeLevel; // defining visual representation of the noise varibale 
+```
+```java
+void setup() {
+  size(800, 400);
+  volume = 0;
+  noiseVolume = 0; // setting initial noise to zero
+  volumeLevel = 0;
+  noiseVolumeLevel = 0; // setting initial noise to zero
+  osc = new SinOsc(this);
+  noise = new WhiteNoise(this); // setting up white noise to be used in the sketch
+  osc.freq(440);
+  osc.play();
+  noise.play(); // play noise
+}
+```
+Now I have to map my noise amplitude the same way that I have done with the volume 
+
+```java
+noise.amp(noiseVolume); // assigning the noise amplitude to the noiseVolume varibale I defined
+
+//mapping out the visual output of the noise level just like I did with the sound level 
+noiseVolumeLevel = int(map(noiseVolume, 0, 1, 0, width));
+  fill(100, 0, 0);
+  rect(0, height/2 + 40, noiseVolumeLevel, 20);
+
+//adding text to show noise level in my textbox
+fill(0);
+  textSize(24);
+  textAlign(CENTER, CENTER);
+  text("Sine Wave Volume Level: " + nf(volume, 1, 2), width/2, height/2 - 50);
+  text("Noise Volume Level: " + nf(noiseVolume, 1, 2), width/2, height/2 + 90); // I position the noise text below volume text
+```
+
+
+
+void keyPressed() {
+  if (key == 'q' || key == 'Q') {
+    noiseVolume -= 0.1;
+    if (noiseVolume < 0) {
+      noiseVolume = 0;
+    }
+  } else if (key == 'w' || key == 'W') {
+    noiseVolume += 0.1;
+    if (noiseVolume > 1) {
+      noiseVolume = 1;
+    }
+  }
+}

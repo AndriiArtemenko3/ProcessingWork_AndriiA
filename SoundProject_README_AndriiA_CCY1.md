@@ -96,8 +96,9 @@ fill(0);
   text("Noise Volume Level: " + nf(noiseVolume, 1, 2), width/2, height/2 + 90); // I position the noise text below volume text
 ```
 
+For my key pressing functionality I will use keyPress function that is 'pre-installed' on processing. For my reference I used the Piano project from the exmamples, official documentation + I think we covered it in class as well. https://processing.org/reference/keyPressed_.html . Basically I want to use q/Q and w/W keys to decrease/increase the noise level in my sketch. if q is pressed, i want the noise amplitude to decrease by 0.1 and if w is pressed i want it to increase by 0.1 . I also set both lower case and capital letters in case the user want to use either of them. I can do this by adding || when I assign the key - as for the code itself q and Q are essentially two different symbols so I need to assign both. the || syntax part in keyPressed function can help to assign more than one key for a specific action. I will also set the limit if the noise level reaches 0 or 1 so that the key decrease/imcrease would only work if value is bigger then zero / smaller then one and for the user not to see an error output. 
 
-
+```java
 void keyPressed() {
   if (key == 'q' || key == 'Q') {
     noiseVolume -= 0.1;
@@ -111,3 +112,4 @@ void keyPressed() {
     }
   }
 }
+```

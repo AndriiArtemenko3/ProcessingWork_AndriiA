@@ -47,3 +47,41 @@ class LeafParticle {
   }
 
 ```
+
+In my update function sketch updates the position of the objects every frame according to the forces applied. If object has not reached the ground the acceleration will be applied to the velocity as it would have been in the real life. The position will chnage according to total velocity ( so velocity + acceleratoon ) as well. The forces stop affecting the object when it reaches the borders of the sketch. 
+
+```java
+void update() {
+    if (!onGround) {
+      velocity.add(acceleration);
+      position.add(velocity);
+      
+      if (position.y >= height - 25) { 
+        position.y = height - 25; 
+        velocity.set(0, 0); 
+        onGround = true; 
+      }
+      
+      acceleration.mult(0);
+    }
+```
+
+The wind force is being applied only if key 'w' is pressed, and i use a loop that iterates through all of the particles in the array list and applies set force by the 
+x axis to all the particles in the sketch 
+
+```java
+void keyPressed() {
+   if (key == 'w') {
+     applyWind();
+   }
+}
+
+void applyWind() {
+   for (int i = 0; i < leaves.size(); i++) {
+     LeafParticle l = leaves.get(i);
+     l.addForce(wind);
+   }
+}
+```
+
+
